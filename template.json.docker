@@ -39,7 +39,7 @@
   "provisioners":[
     {
       "type":"shell",
-      "script": "prov.sh"
+      "script": "docker.sh"
       
     }
   ],
