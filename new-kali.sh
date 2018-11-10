@@ -6,7 +6,7 @@ kaliKeyUrl='https://www.kali.org/archive-key.asc'
 hashAlg='SHA256SUMS'
 kaliBaseUrl='https://cdimage.kali.org/'
 # current
-kaliCurrentUrl="${kaliBaseUrl}current/"
+kaliCurrentUrl="${kaliBaseUrl}kali-weekly/"
 kaliCurrentSHAUrl="${kaliCurrentUrl}${hashAlg}"
 curl='curl -fsSL'
 secretFileFullPath="${HOME}/src/mine/secrets/access_data"
