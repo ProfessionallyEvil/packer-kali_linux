@@ -8,7 +8,7 @@ export PACKET_API_KEY="#{ENV['PACKET_API_KEY']}"
 export PACKET_PROJECT_UUID="#{ENV['PACKET_PROJECT_UUID']}"
 
 # vagrant cloud info
-export VAGRANT_CLOUD_USER="elrey741"
+export VAGRANT_CLOUD_USER="ProfessionallyEvil"
 export VAGRANT_CLOUD_TOKEN="#{ENV['VAGRANT_CLOUD_TOKEN']}" 
 
 # versioning for vagrant cloud
