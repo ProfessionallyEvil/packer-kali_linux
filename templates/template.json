@@ -40,7 +40,7 @@
         "hostname={{ .Name }} ",
         "auto=true ",
         "interface=auto ",
-        "domain='' ",
+        "domain=vm",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     }
@@ -60,8 +60,34 @@
 	      "{{user `scripts_dir`}}/networking.sh",
 	      "{{user `scripts_dir`}}/customization.sh",
 	      "{{user `scripts_dir`}}/virtualbox.sh",
-	      "{{user `scripts_dir`}}/update.sh",
-        "{{user `scripts_dir`}}/minimize.sh"
+	      "{{user `scripts_dir`}}/update.sh"
+      ],
+      "type":"shell"
+    },
+    {
+      "_comment":"This is data that we generated for bloodhound",
+      "type": "file",
+      "source": "{{user `exmple_data_dir`}}/{{user `bloodhound_file`}}",
+      "destination": "/root/bloodhound_data.zip"
+    },
+    {
+      "_comment":"This is data that we generated for wireshark",
+      "type": "file",
+      "source": "{{user `exmple_data_dir`}}/{{user `wireshark_file`}}",
+      "destination": "/root/wpa2.cap"
+    },
+    {
+      "_comment":"This is data that we generated for openvas",
+      "type": "file",
+      "source": "{{user `exmple_data_dir`}}/{{user `openvas_file`}}",
+      "destination": "{{user `openvas_remote`}}"
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [ 
+	        "{{user `tools_dir`}}/lab-tools.sh",
+          "{{user `scripts_dir`}}/minimize.sh"
       ],
       "type":"shell"
     }
@@ -79,25 +105,39 @@
         "box_tag": "{{user `vm_name` }}",
         "access_token": "{{user `vagrant_cloud_token`}}",
         "version": "{{user `vm_version`}}"
+      },
+      {
+        "type": "compress",
+        "output": "kali-{{.Provider}}.zip",
+        "compression_level": 9
       }
   	]
   ],
   "description": "{{user `description`}}",
   "variables":{
+    "_comment": "These are all used in the build process of packer building the vm",
     "iso_url": "",
     "iso_checksum": "",
-    "iso_checksum_type":"",
+    "iso_checksum_type": "",
     "http_path": "install/http",
     "preseed_file": "kali-linux-rolling-preseed.cfg",
-    "scripts_dir": "./prov_packer",
-    "vagrantfile":"install/vagrantfile-kali_linux.template",
-    "vm_name": "",
-    "vm_version":"",
-    "headless":"",
-    "vagrant_cloud_token":"",
     "post_shutdown_time": "2m",
-    "cpus":"1",
+    "cpus": "1",
     "memory": "2048",
+    "headless":"",
+    "_comment": "These are all used in the provisioning process of packer building the vm",
+    "scripts_dir": "./prov_packer",
+    "tools_dir": "./prov_packer/class_scripts",
+    "exmple_data_dir": "./prov_packer/example_data/",
+    "bloodhound_file": "PENT_BloodHound.zip",
+    "wireshark_file": "wpa2-stripped.cap",
+    "openvas_db_file": "tasks.db",
+    "openvas_remote": "/usr/local/var/lib/openvas/mgr/tasks.db",
+    "_comment": "These are used in the post provisioning process of packing building the vm",
+    "vagrantfile": "install/vagrantfile-kali_linux.template",
+    "vm_name": "",
+    "vm_version": "",
+    "vagrant_cloud_token": "",
     "description": "This is not a base box!!! This is a fully up to date Kali Linux rolling release 64 bit architecture. It also has a connecting internal network which will be used for a small pentesting environment. That was automatically created with packer"
   }
 }        
