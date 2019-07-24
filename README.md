@@ -1,11 +1,24 @@
 # Automated Kali Hashcorp Box
 
+[![CircleCI](https://circleci.com/gh/elreydetoda/packer-kali_linux/tree/master.svg?style=svg)](https://circleci.com/gh/elreydetoda/packer-kali_linux/tree/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/elreydetoda/packer-kali_linux/badge)](https://www.codefactor.io/repository/github/elreydetoda/packer-kali_linux)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/17c18e4c56b4477d8a21d10abbd94837)](https://app.codacy.com/app/unc741/packer-kali_linux?utm_source=github.com&utm_medium=referral&utm_content=elreydetoda/packer-kali_linux&utm_campaign=Badge_Grade_Dashboard)
+[![Gitter](https://img.shields.io/gitter/room/elreydetoda/packer-kali_linux.svg?color=red)](https://gitter.im/packer-kali_linux/community)
+[![Release Version](https://img.shields.io/github/release/elreydetoda/packer-kali_linux.svg)](https://github.com/elreydetoda/packer-kali_linux/releases/latest)
+
+If the build status if failing please checkout [pinned issues](https://github.com/elreydetoda/packer-kali_linux/issues), and if there are no pinned issues then please file a detailed bug issue (template comming soon).
+
 ## Presentation
 
-* Slideshow - https://slides.com/elrey741/2018-self
+* Slideshow - https://slides.com/elrey741/redops
 * Video
   * (coming soon)[SELF (Southeast Linuxfest)](https://www.youtube.com/user/southeastlinuxfest/playlists)
   * [bsides chs](http://youtu.be/9EnDotVmcl8)
+* Blog posts
+  * Part 1: https://blog.secureideas.com/2018/09/automating-red-team-homelabs-part-1-kali-automation.html
+    * This blog post is a high level overview as to what I want to use this repo for
+  * Part 2: https://blog.secureideas.com/2019/05/automating-red-team-homelabs-part-2-build-pentest-destroy-and-repeat.html
+    * This blog post is a deep dive into using packer and how I automated this github repo.
 
 
 ## Overview
@@ -14,7 +27,7 @@
 - pass: toor
 
 #### Installed software
-listed in the scripts directory: [here](https://github.com/elreydetoda/packer-kali_linux/tree/master/scripts)
+listed in the scripts directory: [here](https://github.com/elreydetoda/packer-kali_linux/tree/master/prov_packer)
 
 ### what this repo will be for
 So you can vagrant box update to get the new box that is created from this each month by a cron job on my server. This will allow for a fresh new image of Kali with the most up to date tools through the ease of vagrant and however you want to provision my kali box.
