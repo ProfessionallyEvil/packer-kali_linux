@@ -9,13 +9,19 @@ circle_ci(){
 
   echo "export CIRCLECI=true" | sudo tee -a ${env_file} 1>/dev/null
 
-  git clone ${project_url} ${HOME}/project
+  if [[ -d /vagrant ]] ; then
+    ln -sf /vagrant/ ${HOME}/project
+  else
+    git clone ${project_url} ${HOME}/project
+  fi
   echo "cd ${HOME}/project" >> ${HOME}/.bashrc
 
   . ${env_file}
   variables_gen
 
-  cp ${HOME}/project/variables.json /vagrant
+  if [[ ! -f ${HOME}/project/variables.json  ]] ; then
+    cp ${HOME}/project/variables.json /vagrant
+  fi
   get_secret
 }
 
@@ -49,7 +55,7 @@ selection(){
   done
   
   printf 'Please choose a project: '
-  read project_num
+  read -r project_num
   
   if [ $project_num -ge 0 ] && [ $project_num -lt $project_index ] ; then
     ${projects_array[$project_num]}
@@ -79,7 +85,7 @@ cleanup(){
   echo
   echo 'Forcing logout to reload environmental variables'
   echo
-  ps -aux | grep vagrant | grep 'pts/0' | grep [s]sh | awk '{print $2}' | xargs kill
+  ps -aux | grep vagrant | grep 'pts/0' | grep "[s]sh" | awk '{print $2}' | xargs kill
   # if [[ ! -z $project_num ]] ; then
   #   echo 'Powering off machine so you have proper dev env, please do a vagrant up'
   #   sudo shutdown -h now
@@ -88,7 +94,7 @@ cleanup(){
 check_done(){
   echo
   echo 'Will that be all? (Y/n)'
-  read donez_ans
+  read -r donez_ans
   donez_ans=$(echo $donez_ans | tr '[:upper:]' '[:lower:]')
   if [[ !($donez_ans == 'n') ]] ; then
     donez=false
